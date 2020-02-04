@@ -1,6 +1,6 @@
 import os as _os
 
-api_key = _os.environ.get('SOLCAST_API_KEY')
+api_key = "1dJ8ZDLLjpK9vqm66Yo9OtjiUg_ZmvbT"
 
 from .pv_power_forecasts import PvPowerForecasts as get_pv_power_forecasts
 from .pv_power_estimated_actuals import PvPowerEstimatedActuals as get_pv_power_estimated_actuals
