@@ -9,20 +9,12 @@ Sign up and find out more at https://solcast.com.au/api/ .
 
 More documentation coming soon...
 
-Installation
-============
-PyPI install
-------------
-.. code-block:: bash
-
-  $ pip install solcast
-
 GitHub install
 --------------
 .. code-block:: bash
 
-  $ git clone https://github.com/cjtapper/solcast-py
-  $ cd solcast-py
+  $ git clone https://github.com/FidFenix/Radiation.git
+  $ cd Radiation
   $ python setup.py install
 
 Providing the API key
@@ -50,7 +42,7 @@ keyword argument ``api_key``. For example:
 
 .. code-block:: python
 
-   >>> solcast.get_radiation_forecasts(-35, 149, 'INSERTYOURAPIKEYHERE')
+   >>> solcast.get_radiation_forecasts(-35, 149, hours=24)
 
 or:
 
