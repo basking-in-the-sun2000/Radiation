@@ -13,7 +13,7 @@ class Base(object):
     throttled = False
     throttle_release = None
 
-    def _get(self, api_key=api_key, **kwargs):
+    def _request(self, method=None, api_key=api_key, **kwargs):
 
         if api_key == None:
             raise TypeError('{type}() missing 1 required argument: \'api_key\''\
@@ -21,12 +21,18 @@ class Base(object):
 
         logger = logging.getLogger()
 
+        if method == "post":
+            self.method = method
+        else:
+            self.method = 'get'
         self.url = urljoin(_BASE_URL, self.end_point)
         self.status_code = 'Unknown'
         self.content = None
         self.api_key = api_key
         self.rate_limited = kwargs.get('rate_limited', True)
         self.throttle_release_padding = kwargs.get('throttle_release_padding', 2)
+        self.data = kwargs.get('data', None)
+        self.headers = kwargs.get('headers', None)
 
         params = self.params.copy()
         params['format'] = 'json'
@@ -44,7 +50,9 @@ class Base(object):
 
         try:
 
-            r = requests.get(self.url, auth=(self.api_key, ''), params=params)
+            r = requests.request(self.method, self.url, auth=(self.api_key, ''),
+                                 params=params, data=self.data, headers=self.headers)
+
 
             if self.rate_limited and r.status_code == 429:
                 now = time.time()
@@ -82,6 +90,9 @@ class Base(object):
             self.content = r.json()
         except:
             self.content = r.content
+
+    def _get(self, api_key=api_key, **kwargs):
+        Base._request(self, 'get', api_key, **kwargs)
 
 
     @property
