@@ -7,3 +7,4 @@ solcast.egg-info/
 _build
 _static
 _templates
+.DS_Store
